@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Sketch.js</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="Sketch.js"></script>
+</head>
+<body>
+	
+<nav>
+	<h1>Sketch.js</h1>
+	<ul>
+		<li><a href="#initialize">initialize</a></li>
+		<li><a href="#clear">clear()</a></li>
+		<li><a href="#drawLine">drawLine()</a></li>
+		<li><a href="#drawRect">drawRect()</a></li>
+		<li><a href="#drawCircle">drawCircle()</a></li>
+		<li><a href="#drawEllipse">drawEllipse()</a></li>
+		<li><a href="#drawPolygon">drawPolygon()</a></li>
+		<li><a href="#drawQuadraticCurve">drawQuadraticCurve()</a></li>
+		<li><a href="#drawBezierCircle">drawBezierCircle()</a></li>
+	</ul>
+</nav>
+
+<div id="container">
+
+	<section id="documentation">
+		<h2>Method</h2>
+
+		<section id="initialize">
+			<h3>initialize</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = Sketch( 'canvas' );</code></p>
+			</section>
+		</section>
+
+		<section id="clear">
+			<h3>clear()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.clear();</code></p>
+			</section>
+		</section>
+
+		<section id="drawLine">
+			<h3>drawLine()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.drawLine(startX, startY, endX, endY);</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="line" width="150" height="150">
+				<script>
+				(function() {
+					var sketch = new Sketch( 'line' );
+					sketch.drawLine(0, 0, 150, 100);
+				})();
+				</script>
+			</section>
+		</section>
+
+		<section id="drawRect">
+			<h3>drawRect()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.drawRect(x, y, w, h, 45);</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="rect" width="300" height="150">
+				<script>
+				(function() {
+					var sketch = new Sketch( 'rect' );
+					sketch.drawRect(10, 10, 100, 100);
+					sketch.drawRect(180, 20, 100, 100, 45);
+				})();
+				</script>
+			</section>
+		</section>
+
+		<section id="drawCircle">
+			<h3>drawCircle()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.drawCircle(centerX, centerY, rad);</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="circle" width="150" height="150">
+				<script>
+				(function() {
+					var sketch = new Sketch( 'circle' );
+					sketch.drawCircle(sketch.width / 2, sketch.height / 2, 50);
+				})();
+				</script>
+			</section>
+		</section>
+
+		<section id="drawEllipse">
+			<h3>drawEllipse()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.drawEllipse(centerX, centerY, w, h);</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="ellipse" width="150" height="150">
+				<script>
+				(function() {
+					var sketch = new Sketch( 'ellipse' );
+					sketch.drawEllipse(sketch.width / 2, sketch.height / 2, 120 , 150);
+				})();
+				</script>
+			</section>
+		</section>
+
+		<section id="drawPolygon">
+			<h3>drawPolygon()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.drawPolygon(centerX, centerY, p, rad, rotate);</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="polygon" width="500" height="150">
+				<script>
+				(function() {
+					var sketch = new Sketch( 'polygon' );
+					var rad = 75;
+					sketch.drawPolygon(rad, rad, 5, rad);
+					sketch.drawPolygon(rad * 3, rad, 3, rad);
+					sketch.drawPolygon(rad * 5, rad, 3, rad, 90);
+				})();
+				</script>
+			</section>
+		</section>
+
+		<section id="drawQuadraticCurve">
+			<h3>drawQuadraticCurve()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.drawQuadraticCurve(startX, startY, { cpx: Number, cpy: Number, x: Number, y: Number });</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="quadratic" width="500" height="150">
+				<script>
+				(function() {
+					var sketch = new Sketch( 'quadratic' );
+					sketch.stage.fillStyle = 'rgb(255, 255, 255)';
+					sketch.drawQuadraticCurve(0, 0, [
+							{ cpx: 25, cpy: 0, x: 50, y: sketch.height },
+							{ cpx: 50, cpy: 0, x: 100, y: 0 },
+							{ cpx: 150, cpy: 0, x: 200, y: sketch.height }
+						]);
+				})();
+				</script>
+			</section>
+		</section>
+
+		<section id="drawBezierCircle">
+			<h3>drawBezierCircle()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.drawBezierCircle(centerX, centerY, rad, p);</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="bezier" width="300" height="300">
+				<script>
+				(function() {
+					var sketch = new Sketch( 'bezier' );
+					sketch.drawBezierCircle(150, 150, 120, 6);
+				})();
+				</script>
+			</section>
+		</section>
+
+	</section>
+
+</div>
+	
+</body>
+</html>

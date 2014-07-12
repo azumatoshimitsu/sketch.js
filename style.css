@@ -1,0 +1,115 @@
+
+body {
+	background: #EFEFEF;
+	margin: 10px 0;
+	padding: 0;
+	font-family: Helvetica, Meiryo, メイリオ, sans-serif;
+	line-height: 1.6;
+	height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+
+#container {
+	background: #FFF;
+	margin-left: 200px;
+	padding: 10px 30px;
+	max-width: 800px;
+	border-radius: 10px;
+}
+
+nav {
+	overflow: auto;
+	position: fixed;
+	left: 0;
+	top: 10px;
+	width: 180px;
+	font-size: 0.8em;
+}
+
+nav h1 { margin-left: 2em; }
+
+nav a { color: #000; }
+
+nav li { margin-bottom: 0.5em; }
+
+section { margin-bottom: 2em; }
+
+section section { margin-left: 3em; font-size: 100%; }
+
+#container > section > section { margin-bottom: 4em; }
+
+p { font-size: 0.8rem; }
+
+.wrap-code {
+	background: #333;
+	margin-bottom: 10px;
+	padding: 18px 30px; 
+	color: #FFF;
+	border-radius: 10px;
+	font-size: 1rem;
+}
+
+.function-name {
+	margin-left: 1em;
+	font-size: 1rem;
+}
+
+code { white-space: pre; }
+
+section a.button-look {
+	display: inline-block;
+	color: white;
+	background: #499bea;
+	background: -moz-linear-gradient(top,  #499bea 0%, #207ce5 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#499bea), color-stop(100%,#207ce5));
+	background: -webkit-linear-gradient(top,  #499bea 0%,#207ce5 100%);
+	background: -o-linear-gradient(top,  #499bea 0%,#207ce5 100%);
+	background: -ms-linear-gradient(top,  #499bea 0%,#207ce5 100%);
+	background: linear-gradient(to bottom,  #499bea 0%,#207ce5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#207ce5',GradientType=0 );
+	padding: 8px 16px;
+	text-align: center;
+	color: #FFF;
+	border-radius: 6px;
+	font-size: 0.8rem;
+}
+
+.on { border: 1px solid #000; }
+
+.hide { display: none; }
+
+#overlay {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+#overlay-window {
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background: #FFF;
+	margin: 0 0 0 -250px;
+	width: 500px;
+	padding: 25px;
+}
+
+#overlay-window-inner {
+	height: 500px;
+	overflow: auto;
+}
+
+#overlay-window .close {
+	display: block;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	background: #FFF;
+}
+
