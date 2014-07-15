@@ -5,12 +5,16 @@
 //vosegus.org
 
 var Sketch = function(canvasid) {
-	this.element  = document.getElementById(canvasid);
-	this.stage   = this.element.getContext('2d');
-	this.width   = this.element.width;
-	this.height  = this.element.height;
-	this.element.style.width = (this.width / 2) + 'px';
-	this.element.style.height = (this.height / 2) + 'px';
+	var isRetina   = false;
+	this.element   = document.getElementById(canvasid);
+	this.stage     = this.element.getContext('2d');
+	this.width     = this.element.width;
+	this.height    = this.element.height;
+
+	if(isRetina) {
+		this.element.style.width = (this.width / 2) + 'px';
+		this.element.style.height = (this.height / 2) + 'px';
+	}
 }
 
 	Sketch.prototype.stage  = this.stage;
@@ -20,6 +24,13 @@ var Sketch = function(canvasid) {
 	//canvas をクリア
 	Sketch.prototype.clear = function () {
 		this.stage.clearRect(0, 0, this.width, this.height);
+	};
+	Sketch.prototype.setFillColor = function(color) {
+		this.stage.fillStyle = color;
+		console.log(this.stage.fillStyle);
+	};
+	Sketch.prototype.setStrokeColor = function(color) {
+		this.stage.strokeStyle = color;
 	};
 	//線描画
 	Sketch.prototype.drawLine = function(startX, startY, endX, endY) {

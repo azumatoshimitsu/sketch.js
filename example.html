@@ -18,6 +18,8 @@
 		<li><a href="#drawCircle">drawCircle()</a></li>
 		<li><a href="#drawEllipse">drawEllipse()</a></li>
 		<li><a href="#drawPolygon">drawPolygon()</a></li>
+		<li><a href="#setFillColor">setFillColor()</a></li>
+		<li><a href="#setStrokeColor">setStrokeColor()</a></li>
 		<li><a href="#drawQuadraticCurve">drawQuadraticCurve()</a></li>
 		<li><a href="#drawBezierCircle">drawBezierCircle()</a></li>
 	</ul>
@@ -85,7 +87,7 @@ sketch.drawLine(startX, startY, endX, endY);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawRect(x, y, w, h, 45);</code></p>
+sketch.drawRect(x, y, w, h, rotate);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -145,7 +147,8 @@ sketch.drawEllipse(centerX, centerY, w, h);</code></p>
 				</script>
 			</section>
 		</section>
-
+		
+		<a id="setStrokeColor"></a><a id="setFillColor"></a>
 		<section id="drawPolygon">
 			<h3>drawPolygon()</h3>
 			<section>
@@ -155,6 +158,8 @@ sketch.drawEllipse(centerX, centerY, w, h);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.setStrokeColor(String);
+sketch.setFillColor(String);
 sketch.drawPolygon(centerX, centerY, p, rad, rotate);</code></p>
 			</section>
 			<section>
@@ -166,6 +171,8 @@ sketch.drawPolygon(centerX, centerY, p, rad, rotate);</code></p>
 					var rad = 75;
 					sketch.drawPolygon(rad, rad, 5, rad);
 					sketch.drawPolygon(rad * 3, rad, 3, rad);
+					sketch.setStrokeColor('#f00000');
+					sketch.setFillColor('#f00000');
 					sketch.drawPolygon(rad * 5, rad, 3, rad, 90);
 				})();
 				</script>
