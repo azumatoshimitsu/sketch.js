@@ -5,11 +5,12 @@
 //vosegus.org
 
 var Sketch = function(canvasid) {
-	var isRetina   = false;
-	this.element   = document.getElementById(canvasid);
-	this.stage     = this.element.getContext('2d');
-	this.width     = this.element.width;
-	this.height    = this.element.height;
+	var isRetina  = false;
+	this.element  = document.getElementById(canvasid);
+	this.stage    = this.element.getContext('2d');
+	this.width    = this.element.width;
+	this.height   = this.element.height;
+	this.noStroke = false;
 
 	if(isRetina) {
 		this.element.style.width = (this.width / 2) + 'px';
@@ -20,14 +21,19 @@ var Sketch = function(canvasid) {
 	Sketch.prototype.stage  = this.stage;
 	Sketch.prototype.width  = this.width;
 	Sketch.prototype.height = this.height;
+	Sketch.prototype.noStroke = this.noStroke;
 
-	//canvas をクリア
 	Sketch.prototype.clear = function () {
 		this.stage.clearRect(0, 0, this.width, this.height);
 	};
+	Sketch.prototype.save = function () {
+		this.stage.save();
+	};
+	Sketch.prototype.restore = function () {
+		this.stage.restore();
+	};
 	Sketch.prototype.setFillColor = function(color) {
 		this.stage.fillStyle = color;
-		console.log(this.stage.fillStyle);
 	};
 	Sketch.prototype.setStrokeColor = function(color) {
 		this.stage.strokeStyle = color;
@@ -55,7 +61,8 @@ var Sketch = function(canvasid) {
 			this.stage.rect(x, y, w, h);
 		}
 		this.stage.fill();
-		this.stage.stroke();
+		if(!this.noStroke)
+			this.stage.stroke();
 		return {
 			isHit: function(e) {
 				var target = e.target.getBoundingClientRect();
@@ -73,7 +80,8 @@ var Sketch = function(canvasid) {
 		this.stage.beginPath();
 		this.stage.arc(centerX, centerY, rad, 0, Math.PI * 2, false);
 		this.stage.fill();
-		this.stage.stroke();
+		if(!this.noStroke)
+			this.stage.stroke();
 		return {
 			isHit:function(e){
 				var target = e.target.getBoundingClientRect();
@@ -115,7 +123,8 @@ var Sketch = function(canvasid) {
 			this.stage.lineTo(point[0].x, point[0].y);
 		}
 		this.stage.fill();
-		this.stage.stroke();
+		if(!this.noStroke)
+			this.stage.stroke();
 		this.stage.restore();
 		
 		function getPoint(x, y, angle, r) {
@@ -134,7 +143,8 @@ var Sketch = function(canvasid) {
 			prev = { x: points[i].x, y: points[i].y }
 		}
 		this.stage.fill();
-		this.stage.stroke();
+		if(!this.noStroke)
+			this.stage.stroke();
 	};
 	//ベジェで揺らめく円 http://jsdo.it/asou_jp/qWr9
 	Sketch.prototype.drawBezierCircle = function(centerX, centerY, rad, p) {
@@ -228,5 +238,12 @@ var Sketch = function(canvasid) {
 		this.stage.bezierCurveTo(centerX - radW, centerY, centerX - radW, centerY - radH, centerX, centerY - radH);
 		this.stage.fill();
 		this.stage.stroke();
+	};
+
+	Sketch.prototype.getMousePosition = function(e) {
+		var rect = this.element.getBoundingClientRect();
+	    var x = e.clientX - rect.left;
+	    var y = e.clientY - rect.top;
+	    return {x: x, y: y};
 	};
 	

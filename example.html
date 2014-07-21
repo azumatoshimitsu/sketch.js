@@ -22,6 +22,7 @@
 		<li><a href="#setStrokeColor">setStrokeColor()</a></li>
 		<li><a href="#drawQuadraticCurve">drawQuadraticCurve()</a></li>
 		<li><a href="#drawBezierCircle">drawBezierCircle()</a></li>
+		<li><a href="#getMousePosition">getMousePosition()</a></li>
 	</ul>
 </nav>
 
@@ -225,6 +226,44 @@ sketch.drawBezierCircle(centerX, centerY, rad, p);</code></p>
 				(function() {
 					var sketch = new Sketch( 'bezier' );
 					sketch.drawBezierCircle(150, 150, 120, 6);
+				})();
+				</script>
+			</section>
+		</section>
+
+		<section id="getMousePosition">
+			<h3>getMousePosition()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+var pos = sketch.getMousePosition();
+console.log(pos.x, pos.y);</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<button id="reset-mouseposrect">Reset</button><br>
+				<canvas id="mousepos" width="250" height="250">
+				<script>
+				(function() {
+					var sketch = new Sketch( 'mousepos' );
+					sketch.drawRect(0, 0, 250, 250);
+					sketch.noStroke = true;
+					sketch.setFillColor('#fff');
+					sketch.element.addEventListener('mousemove', function(e) {
+						var pos = sketch.getMousePosition(e);
+						sketch.drawRect(pos.x, pos.y, 4, 4);
+					});
+					document.querySelector('#reset-mouseposrect').addEventListener('click', function(e) {
+						var pos = sketch.getMousePosition(e);
+						sketch.save();
+						sketch.setFillColor('#000');
+						sketch.drawRect(0, 0, 250, 250);
+						sketch.restore();
+					});
 				})();
 				</script>
 			</section>
