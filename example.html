@@ -21,6 +21,7 @@
 		<li><a href="#setFillColor">setFillColor()</a></li>
 		<li><a href="#setStrokeColor">setStrokeColor()</a></li>
 		<li><a href="#drawQuadraticCurve">drawQuadraticCurve()</a></li>
+		<li><a href="#drawBezierCurve">drawBezierCurve()</a></li>
 		<li><a href="#drawBezierCircle">drawBezierCircle()</a></li>
 		<li><a href="#getMousePosition">getMousePosition()</a></li>
 	</ul>
@@ -189,7 +190,7 @@ sketch.drawPolygon(centerX, centerY, p, rad, rotate);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawQuadraticCurve(startX, startY, { cpx: Number, cpy: Number, x: Number, y: Number });</code></p>
+sketch.drawQuadraticCurve(startX, startY, { cpx: Number, cpy: Number, endx: Number, endy: Number });</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -199,9 +200,41 @@ sketch.drawQuadraticCurve(startX, startY, { cpx: Number, cpy: Number, x: Number,
 					var sketch = new Sketch( 'quadratic' );
 					sketch.stage.fillStyle = 'rgb(255, 255, 255)';
 					sketch.drawQuadraticCurve(0, 0, [
-							{ cpx: 25, cpy: 0, x: 50, y: sketch.height },
-							{ cpx: 50, cpy: 0, x: 100, y: 0 },
-							{ cpx: 150, cpy: 0, x: 200, y: sketch.height }
+							{ cpx: 25, cpy: 0, endx: 50, endy: sketch.height },
+							{ cpx: 50, cpy: 0, endx: 100, endy: 0 },
+							{ cpx: 150, cpy: 0, endx: 200, endy: sketch.height }
+						]);
+				})();
+				</script>
+			</section>
+		</section>
+
+
+		<section id="drawBezierCurve">
+			<h3>drawBezierCurve()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.drawBezierCurve(
+				sx, sy, [
+					{ cpx: cpx, cpy: cpy, cp2x: cp2x, cp2y: cp2y, endx: ex, endy: ey }
+				]
+			);</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="bezierCurve" width="500" height="160">
+				<script>
+				(function() {
+					var sketch = new Sketch( 'bezierCurve' );
+					sketch.stage.fillStyle = 'rgb(255, 255, 255)';
+					sketch.drawBezierCurve(0, 0, [
+							{ cpx: 150, cpy: 100, cp2x: 200, cp2y: 180, endx: 500, endy: 150 },
+							{ cpx: 500, cpy: 120, cp2x: 200, cp2y: 160, endx: 250, endy: 60 }
 						]);
 				})();
 				</script>
@@ -253,7 +286,7 @@ console.log(pos.x, pos.y);</code></p>
 					sketch.drawRect(0, 0, 250, 250);
 					sketch.noStroke = true;
 					sketch.setFillColor('#fff');
-					sketch.element.addEventListener('mousemove', function(e) {
+					sketch.element.addEventListener(sketch.move, function(e) {
 						var pos = sketch.getMousePosition(e);
 						sketch.drawRect(pos.x, pos.y, 4, 4);
 					});
