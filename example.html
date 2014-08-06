@@ -13,6 +13,7 @@
 	<ul>
 		<li><a href="#initialize">initialize</a></li>
 		<li><a href="#clear">clear()</a></li>
+		<li><a href="#fps">fps()</a></li>
 		<li><a href="#drawLine">drawLine()</a></li>
 		<li><a href="#drawRect">drawRect()</a></li>
 		<li><a href="#drawCircle">drawCircle()</a></li>
@@ -20,6 +21,7 @@
 		<li><a href="#drawPolygon">drawPolygon()</a></li>
 		<li><a href="#setFillColor">setFillColor()</a></li>
 		<li><a href="#setStrokeColor">setStrokeColor()</a></li>
+		<li><a href="#setGradient">setGradient()</a></li>
 		<li><a href="#drawQuadraticCurve">drawQuadraticCurve()</a></li>
 		<li><a href="#drawBezierCurve">drawBezierCurve()</a></li>
 		<li><a href="#drawBezierCircle">drawBezierCircle()</a></li>
@@ -54,6 +56,37 @@
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
 sketch.clear();</code></p>
+			</section>
+		</section>
+
+		<section id="fps">
+			<h3>fps()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+var fps = sketch.fps();</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="fpscanvas" width="1" height="1"></canvas>
+				<div id="fpscount"></div>
+				<script>
+				(function() {
+					var sketch = new Sketch( 'fpscanvas' );
+					var fpscount = document.querySelector('#fpscount');
+
+					function loop() {
+						var fps = sketch.fps();
+						fpscount.innerHTML = Math.floor(fps) + 'FPS';
+						requestAnimationFrame(loop);
+					};
+					requestAnimationFrame(loop);
+				})();
+				</script>
 			</section>
 		</section>
 
@@ -93,7 +126,7 @@ sketch.drawRect(x, y, w, h, rotate);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
-				<canvas id="rect" width="300" height="150">
+				<canvas id="rect" width="300" height="150"></canvas>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'rect' );
@@ -117,7 +150,7 @@ sketch.drawCircle(centerX, centerY, rad);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
-				<canvas id="circle" width="150" height="150">
+				<canvas id="circle" width="150" height="150"></canvas>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'circle' );
@@ -140,7 +173,7 @@ sketch.drawEllipse(centerX, centerY, w, h);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
-				<canvas id="ellipse" width="150" height="150">
+				<canvas id="ellipse" width="150" height="150"></canvas>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'ellipse' );
@@ -150,7 +183,7 @@ sketch.drawEllipse(centerX, centerY, w, h);</code></p>
 			</section>
 		</section>
 		
-		<a id="setStrokeColor"></a><a id="setFillColor"></a>
+		<a id="setStrokeColor"></a><a id="setFillColor"></a><a id="setGradient"></a>
 		<section id="drawPolygon">
 			<h3>drawPolygon()</h3>
 			<section>
@@ -160,22 +193,46 @@ sketch.drawEllipse(centerX, centerY, w, h);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.setStrokeColor(String);
-sketch.setFillColor(String);
+sketch.setStrokeColor(StringColor);
+sketch.setFillColor(StringColor);
+sketch.setGradient(
+	'StringGradientType',
+	{startX: Number, startY: Number, endX: Number, endY: Number},
+	[
+		{offset: float, color: StringColor},
+		{offset: float, color: StringColor},
+		{offset: float, color: StringColor},
+		{offset: float, color: StringColor},
+		{offset: float, color: StringColor}
+	]
+);
 sketch.drawPolygon(centerX, centerY, p, rad, rotate);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
-				<canvas id="polygon" width="500" height="150">
+				<canvas id="polygon" width="500" height="150"></canvas>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'polygon' );
 					var rad = 75;
-					sketch.drawPolygon(rad, rad, 5, rad);
 					sketch.drawPolygon(rad * 3, rad, 3, rad);
 					sketch.setStrokeColor('#f00000');
 					sketch.setFillColor('#f00000');
 					sketch.drawPolygon(rad * 5, rad, 3, rad, 90);
+
+					sketch.noStroke = true;
+					sketch.setGradient(
+						'linear',
+						{startX: 0, startY: 0, endX: rad, endY: rad},
+						[
+							{offset: 0,   color: 'hsl(130, 10%, 10%)'},
+							{offset: 0.2, color: 'hsl(110, 20%, 15%)'},
+							{offset: 0.5, color: 'hsl(110, 40%, 20%)'},
+							{offset: 0.7, color: 'hsl(110, 60%, 25%)'},
+							{offset: 1,   color: 'hsl(110, 80%, 30%)'}
+						]
+					);
+					sketch.drawPolygon(rad, rad, 5, rad);
 				})();
 				</script>
 			</section>
@@ -194,7 +251,7 @@ sketch.drawQuadraticCurve(startX, startY, { cpx: Number, cpy: Number, endx: Numb
 			</section>
 			<section>
 				<h4>Exmaple</h4>
-				<canvas id="quadratic" width="500" height="150">
+				<canvas id="quadratic" width="500" height="150"></canvas>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'quadratic' );
@@ -219,15 +276,13 @@ sketch.drawQuadraticCurve(startX, startY, { cpx: Number, cpy: Number, endx: Numb
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawBezierCurve(
-				sx, sy, [
-					{ cpx: cpx, cpy: cpy, cp2x: cp2x, cp2y: cp2y, endx: ex, endy: ey }
-				]
-			);</code></p>
+sketch.drawBezierCurve(startX, startY, [
+	{ cpx: Number, cpy: Number, cp2x: Number, cp2y: Number, endx: Number, endy: Number }
+]);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
-				<canvas id="bezierCurve" width="500" height="160">
+				<canvas id="bezierCurve" width="500" height="160"></canvas>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'bezierCurve' );
@@ -254,7 +309,7 @@ sketch.drawBezierCircle(centerX, centerY, rad, p);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
-				<canvas id="bezier" width="300" height="300">
+				<canvas id="bezier" width="300" height="300"></canvas>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'bezier' );
@@ -279,7 +334,7 @@ console.log(pos.x, pos.y);</code></p>
 			<section>
 				<h4>Exmaple</h4>
 				<button id="reset-mouseposrect">Reset</button><br>
-				<canvas id="mousepos" width="250" height="250">
+				<canvas id="mousepos" width="250" height="250"></canvas>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'mousepos' );

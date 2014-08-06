@@ -13,6 +13,7 @@ var Sketch = function(canvasid, option) {
 	this.height   = this.element.height;
 	this.noStroke = false;
 	this.noFill   = false;
+	this.lastTime = 0;
 	this.move = (this.isTouch)? 'touchmove' : 'mousemove';
 	this.down = (this.isTouch)? 'touchstart' : 'mousedown';
 	this.up   = (this.isTouch)? 'touchend' : 'mouseup';
@@ -36,6 +37,12 @@ var Sketch = function(canvasid, option) {
 		clear: function() {
 			this.stage.clearRect(0, 0, this.width, this.height);
 		},
+		fps: function() {
+			var now = (+new Date());
+			var fps = 1000 / (now - this.lastTime);
+			this.lastTime = now;
+			return fps;
+		},
 		save: function() {
 			this.stage.save();
 		},
@@ -47,6 +54,13 @@ var Sketch = function(canvasid, option) {
 		},
 		setStrokeColor: function(color) {
 			this.stage.strokeStyle = color;
+		},
+		setGradient: function(type, size, styles) {
+			var grad  = this.stage.createLinearGradient(size.startX, size.startY, size.endX, size.endY);
+			styles.forEach(function(v, i) {
+				grad.addColorStop(v.offset, v.color);
+			});
+			this.stage.fillStyle = grad;
 		},
 		//線描画
 		drawLine: function(startX, startY, endX, endY) {
