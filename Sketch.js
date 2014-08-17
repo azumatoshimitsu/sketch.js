@@ -13,6 +13,7 @@ var Sketch = function(canvasid, option) {
 	this.height   = this.element.height;
 	this.noStroke = false;
 	this.noFill   = false;
+	this.lastTime = 0;
 	this.move = (this.isTouch)? 'touchmove' : 'mousemove';
 	this.down = (this.isTouch)? 'touchstart' : 'mousedown';
 	this.up   = (this.isTouch)? 'touchend' : 'mouseup';
@@ -36,6 +37,12 @@ var Sketch = function(canvasid, option) {
 		clear: function() {
 			this.stage.clearRect(0, 0, this.width, this.height);
 		},
+		fps: function() {
+			var now = (+new Date());
+			var fps = 1000 / (now - this.lastTime);
+			this.lastTime = now;
+			return fps;
+		},
 		save: function() {
 			this.stage.save();
 		},
@@ -47,6 +54,13 @@ var Sketch = function(canvasid, option) {
 		},
 		setStrokeColor: function(color) {
 			this.stage.strokeStyle = color;
+		},
+		setGradient: function(type, size, styles) {
+			var grad  = this.stage.createLinearGradient(size.startX, size.startY, size.endX, size.endY);
+			styles.forEach(function(v, i) {
+				grad.addColorStop(v.offset, v.color);
+			});
+			this.stage.fillStyle = grad;
 		},
 		//線描画
 		drawLine: function(startX, startY, endX, endY) {
@@ -93,18 +107,14 @@ var Sketch = function(canvasid, option) {
 				this.stage.fill();
 			if(!this.noStroke)
 				this.stage.stroke();
-			return {
-				isHit: function(target, current) {
-					var mouseX = target.x;
-					var mouseY = target.y;
-					if(dist(mouseX, mouseY, current.x, current.y) <= rad)
-						return true;
-					else
-						return false;
-				}
-			};
+		},
+		isHitCircle: function(target, current, distance) {
+			if(dist(target.x, target.y, current.x, current.y) <= distance)
+				return true;
+			else
+				return false;
 			//円同士が重なっているかを中心座標から計算
-			function dist(x1, y1, x2, y2){
+			function dist(x1, y1, x2, y2) {
 			  var a = x1 - x2;
 			  var b = y1 - y2;
 			  var d = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
