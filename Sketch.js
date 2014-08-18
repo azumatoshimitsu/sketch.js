@@ -194,6 +194,17 @@ var Sketch = function(canvasid, option) {
 			if(!this.noStroke)
 				this.stage.stroke();
 		},
+		drawImage: function(image, sx, sy, sw, sh, dx, dy, dw, dh) {
+			var sx = sx || 0;
+			var sy = sy || 0;
+			var sw = sw || image.width;
+			var sh = sh || image.height;
+			var dx = dx || 0;
+			var dy = dy || 0;
+			var dw = dw || sw;
+			var dh = dh || sh;
+			this.stage.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+		},
 		//ベジェで揺らめく円 http://jsdo.it/asou_jp/qWr9
 		drawBezierCircle: function(centerX, centerY, rad, p) {
 	    	var points = [];

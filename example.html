@@ -25,6 +25,7 @@
 		<li><a href="#drawQuadraticCurve">drawQuadraticCurve()</a></li>
 		<li><a href="#drawBezierCurve">drawBezierCurve()</a></li>
 		<li><a href="#drawBezierCircle">drawBezierCircle()</a></li>
+		<li><a href="#drawImage">drawImage()</a></li>
 		<li><a href="#getMousePosition">getMousePosition()</a></li>
 		<li><a href="#isHitCircle">isHitCircle()</a></li>
 	</ul>
@@ -320,6 +321,38 @@ sketch.drawBezierCircle(centerX, centerY, rad, p);</code></p>
 			</section>
 		</section>
 
+		<section id="drawImage">
+			<h3>drawImage()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+var sketch = new Sketch( 'image' );
+var image = new Image();
+image.src = 'image.jpg';
+image.onload = function() {
+	sketch.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+};</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="image" width="200" height="200"></canvas>
+				<script>
+				(function() {
+					var sketch = new Sketch( 'image' );
+					var image = new Image();
+					image.src = 'image.jpg';
+					image.onload = function() {
+						sketch.drawImage(image, 100, 100, 600, 350, 0, 0, 200, 200);
+					};
+				})();
+				</script>
+			</section>
+		</section>
+
 		<section id="getMousePosition">
 			<h3>getMousePosition()</h3>
 			<section>
@@ -367,7 +400,7 @@ var circlePos = { x: sketch.width / 2, y: sketch.height / 2 };
 var circle = sketch.drawCircle(circlePos.x, circlePos.y, 20);
 sketch.element.addEventListener(sketch.move, function(e) {
 	var pos = sketch.getMousePosition(e);
-	isHitBool.innerHTML = sketch.isHitCircle(pos, circlePos);
+	isHitBool.innerHTML = sketch.isHitCircle(pos, circlePos, distance);
 });</code></p>
 			</section>
 			<section>
