@@ -55,7 +55,10 @@ var Sketch = function(canvasid, option) {
 		setStrokeColor: function(color) {
 			this.stage.strokeStyle = color;
 		},
-		setGradient: function(type, size, styles) {
+		setGradient: function(arg) {
+			var type = arg.type;
+			var size = arg.size;
+			var styles = arg.styles;
 			var grad  = this.stage.createLinearGradient(size.startX, size.startY, size.endX, size.endY);
 			styles.forEach(function(v, i) {
 				grad.addColorStop(v.offset, v.color);
@@ -63,14 +66,19 @@ var Sketch = function(canvasid, option) {
 			this.stage.fillStyle = grad;
 		},
 		//線描画
-		drawLine: function(startX, startY, endX, endY) {
+		drawLine: function(arg) {
 			this.stage.beginPath();
-			this.stage.moveTo(startX, startY);
-			this.stage.lineTo(endX, endY);
+			this.stage.moveTo(arg.startX, arg.startY);
+			this.stage.lineTo(arg.endX, arg.endY);
 			this.stage.stroke();
 		},
 		//矩形描画
-		drawRect: function(x, y, w, h, rad) {
+		drawRect: function(arg) {
+			var x = arg.x;
+			var y = arg.y;
+			var w = arg.w;
+			var h = arg.h;
+			var rad = arg.rad;
 			if(rad) {
 				this.stage.save();
 				var rotateW = Math.abs(x + (w / 2));
@@ -100,7 +108,10 @@ var Sketch = function(canvasid, option) {
 			};
 		},
 		//円描画
-		drawCircle: function(centerX, centerY, rad) {
+		drawCircle: function(arg) {
+			var centerX = arg.centerX;
+			var centerY = arg.centerY;
+			var rad = arg.rad;
 			this.stage.beginPath();
 			this.stage.arc(centerX, centerY, rad, 0, Math.PI * 2, false);
 			if(!this.noFill)
@@ -122,7 +133,12 @@ var Sketch = function(canvasid, option) {
 			}
 		},
 		//多角形描画
-		drawPolygon: function(centerX, centerY, p, rad, rotate) {
+		drawPolygon: function(arg) {
+			var centerX = arg.centerX;
+			var centerY = arg.centerY;
+			var p = arg.p;
+			var rad = arg.rad;
+			var rotate = arg.rotate;
 			var point = [];
 			var angle = 360 / p;
 			this.stage.save();
@@ -161,7 +177,10 @@ var Sketch = function(canvasid, option) {
 			};
 		},
 		//二次ベジェ曲線
-		drawQuadraticCurve: function(startX, startY, points) {
+		drawQuadraticCurve: function(arg) {
+			var startX = arg.startX;
+			var startY = arg.startY;
+			var points = arg.points;
 			var len = points.length;
 			var prev = { x: startX, y: startY };
 			this.stage.beginPath();
@@ -176,14 +195,17 @@ var Sketch = function(canvasid, option) {
 				this.stage.stroke();
 		},
 		//三次ベジェ曲線
-		drawBezierCurve: function(startX, startY, points) {
+		drawBezierCurve: function(arg) {
+			var startX = arg.startX;
+			var startY = arg.startY;
+			var points = arg.points;
 			var len = points.length;
 			var prev = { x: startX, y: startY };
 			this.stage.beginPath();
 			this.stage.moveTo(prev.x, prev.y);
 			for(var i = 0; i < len; i += 1) {
 				this.stage.bezierCurveTo(
-					points[i].cpx, points[i].cpy,
+					points[i].cpx,  points[i].cpy,
 					points[i].cp2x, points[i].cp2y,
 					points[i].endx, points[i].endy
 				);
@@ -194,19 +216,24 @@ var Sketch = function(canvasid, option) {
 			if(!this.noStroke)
 				this.stage.stroke();
 		},
-		drawImage: function(image, sx, sy, sw, sh, dx, dy, dw, dh) {
-			var sx = sx || 0;
-			var sy = sy || 0;
-			var sw = sw || image.width;
-			var sh = sh || image.height;
-			var dx = dx || 0;
-			var dy = dy || 0;
-			var dw = dw || sw;
-			var dh = dh || sh;
+		drawImage: function(arg) {
+			var image = arg.image;
+			var sx = arg.sx || 0;
+			var sy = arg.sy || 0;
+			var sw = arg.sw || arg.image.width;
+			var sh = arg.sh || arg.image.height;
+			var dx = arg.dx || 0;
+			var dy = arg.dy || 0;
+			var dw = arg.dw || arg.sw;
+			var dh = arg.dh || arg.sh;
 			this.stage.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
 		},
 		//ベジェで揺らめく円 http://jsdo.it/asou_jp/qWr9
-		drawBezierCircle: function(centerX, centerY, rad, p) {
+		drawBezierCircle: function(arg) {
+			var centerX = arg.centerX;
+			var centerY = arg.centerY;
+			var rad = arg.rad;
+			var p = arg.p;
 	    	var points = [];
 		    for (var i = 0; i < p; i++) {
 		        var point, angle, rot;　//角度
@@ -215,18 +242,13 @@ var Sketch = function(canvasid, option) {
 		        point = {}; 
 		        point.x = rad * Math.cos(angle) + centerX;
 		        point.y = rad * Math.sin(angle) + centerY;
-		        //座標初期値
 		        point.bx = point.x;
 		        point.by = point.y;
-		        // 角度
 		        point.angleX = point.angleY = 0;
-		        // 振幅
 		        point.mx = Math.random() * 50 - 20;
 		        point.my = Math.random() * 50 - 20;
-		        // 角度の増加量
 		        point.sx = Math.random() * 3 + 1;
 		        point.sy = Math.random() * 3 + 1;
-		        //配列に追加
 		        points.push(point);
 		    }
 		    draw(points, this.stage);
@@ -250,17 +272,13 @@ var Sketch = function(canvasid, option) {
 			        
 			        point.angleX += point.sx;
 			        point.angleY += point.sy;
-			        //次の点との中間座標
 			    	anchorPoint = interpolate(point, nextPoint, 0.5);
 			    	anchorPointList.push(anchorPoint);
-			    	//点と点の中間座標
 			    	controlPoint1 = interpolate(anchorPoint, nextPoint, 0.6);
 			    	controlPoint1List.push(controlPoint1);
-			        //点と点の中間座標
 			        controlPoint2 = interpolate(anchorPoint, point, 0.6);
 			    	controlPoint2List.push(controlPoint2);
 			    }
-			    // 最初のコントロールポイントを描画用に最期に入れ替える
 			    var tmp = controlPoint2List.shift();
 			    controlPoint2List.push(tmp);
 			    ctx.beginPath();
@@ -286,7 +304,11 @@ var Sketch = function(canvasid, option) {
 			};
 	    },
 		//楕円描画
-		drawEllipse: function(centerX, centerY, w, h) {
+		drawEllipse: function(arg) {
+			var centerX = arg.centerX;
+			var centerY = arg.centerY;
+			var w = arg.w;
+			var h = arg.h;
 			var radW = w / 2;
 			var radH = h / 2;
 			this.stage.beginPath();

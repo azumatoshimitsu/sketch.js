@@ -101,7 +101,8 @@ var fps = sketch.fps();</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawLine(startX, startY, endX, endY);</code></p>
+var prop = {startX: 0, startY: 0, endX: 150, endY: 100};
+sketch.drawLine(prop);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -109,7 +110,8 @@ sketch.drawLine(startX, startY, endX, endY);</code></p>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'line' );
-					sketch.drawLine(0, 0, 150, 100);
+					var prop = {startX: 0, startY: 0, endX: 150, endY: 100};
+					sketch.drawLine(prop);
 				})();
 				</script>
 			</section>
@@ -124,7 +126,8 @@ sketch.drawLine(startX, startY, endX, endY);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawRect(x, y, w, h, rotate);</code></p>
+var prop = {x: 10, y: 10, w: 100, h: 100, rad: 45};
+sketch.drawRect(prop);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -132,8 +135,10 @@ sketch.drawRect(x, y, w, h, rotate);</code></p>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'rect' );
-					sketch.drawRect(10, 10, 100, 100);
-					sketch.drawRect(180, 20, 100, 100, 45);
+					var prop = {x: 10, y: 10, w: 100, h: 100};
+					var prop2 = {x: 180, y: 20, w: 100, h: 100, rad: 45};
+					sketch.drawRect(prop);
+					sketch.drawRect(prop2);
 				})();
 				</script>
 			</section>
@@ -148,7 +153,8 @@ sketch.drawRect(x, y, w, h, rotate);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawCircle(centerX, centerY, rad);</code></p>
+var prop = {centerX: sketch.width / 2, centerY: sketch.height / 2, rad: 50};
+sketch.drawCircle(prop);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -156,7 +162,8 @@ sketch.drawCircle(centerX, centerY, rad);</code></p>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'circle' );
-					sketch.drawCircle(sketch.width / 2, sketch.height / 2, 50);
+					var prop = {centerX: sketch.width / 2, centerY: sketch.height / 2, rad: 50};
+					sketch.drawCircle(prop);
 				})();
 				</script>
 			</section>
@@ -171,7 +178,13 @@ sketch.drawCircle(centerX, centerY, rad);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawEllipse(centerX, centerY, w, h);</code></p>
+var prop = {
+	centerX: sketch.width / 2,
+	centerY: sketch.height / 2,
+	w: 120,
+	h: 150
+};
+sketch.drawEllipse(prop);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -179,7 +192,13 @@ sketch.drawEllipse(centerX, centerY, w, h);</code></p>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'ellipse' );
-					sketch.drawEllipse(sketch.width / 2, sketch.height / 2, 120 , 150);
+					var prop = {
+						centerX: sketch.width / 2,
+						centerY: sketch.height / 2,
+						w: 120,
+						h: 150
+					};
+					sketch.drawEllipse(prop);
 				})();
 				</script>
 			</section>
@@ -197,18 +216,21 @@ sketch.drawEllipse(centerX, centerY, w, h);</code></p>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
 sketch.setStrokeColor(StringColor);
 sketch.setFillColor(StringColor);
-sketch.setGradient(
-	'StringGradientType',
-	{startX: Number, startY: Number, endX: Number, endY: Number},
-	[
-		{offset: float, color: StringColor},
-		{offset: float, color: StringColor},
-		{offset: float, color: StringColor},
-		{offset: float, color: StringColor},
-		{offset: float, color: StringColor}
+var prop = {
+	type: 'linear',
+	size: {startX: 0, startY: 0, endX: rad, endY: rad},
+	styles: [
+		{offset: 0,   color: 'hsl(130, 10%, 10%)'},
+		{offset: 0.2, color: 'hsl(110, 20%, 15%)'},
+		{offset: 0.5, color: 'hsl(110, 40%, 20%)'},
+		{offset: 0.7, color: 'hsl(110, 60%, 25%)'},
+		{offset: 1,   color: 'hsl(110, 80%, 30%)'}
 	]
-);
-sketch.drawPolygon(centerX, centerY, p, rad, rotate);</code></p>
+};
+sketch.setGradient(prop);
+
+var prop  = {centerX: rad * 3, centerY: rad, p: 3, rad: rad, rotate: 90};
+sketch.drawPolygon(prop);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -217,24 +239,30 @@ sketch.drawPolygon(centerX, centerY, p, rad, rotate);</code></p>
 				(function() {
 					var sketch = new Sketch( 'polygon' );
 					var rad = 75;
-					sketch.drawPolygon(rad * 3, rad, 3, rad);
+					var prop  = {centerX: rad * 3, centerY: rad, p: 3, rad: rad, rotate: 90};
+					var prop2 = {centerX: rad * 5, centerY: rad, p: 3, rad: rad, rotate: 90};
+					var prop3 = {centerX: rad    , centerY: rad, p: 5, rad: rad, rotate: rad};
+					sketch.drawPolygon(prop);
+
 					sketch.setStrokeColor('#f00000');
 					sketch.setFillColor('#f00000');
-					sketch.drawPolygon(rad * 5, rad, 3, rad, 90);
+					sketch.drawPolygon(prop2);
 
-					sketch.noStroke = true;
-					sketch.setGradient(
-						'linear',
-						{startX: 0, startY: 0, endX: rad, endY: rad},
-						[
+					var prop = {
+						type: 'linear',
+						size: {startX: 0, startY: 0, endX: rad, endY: rad},
+						styles: [
 							{offset: 0,   color: 'hsl(130, 10%, 10%)'},
 							{offset: 0.2, color: 'hsl(110, 20%, 15%)'},
 							{offset: 0.5, color: 'hsl(110, 40%, 20%)'},
 							{offset: 0.7, color: 'hsl(110, 60%, 25%)'},
 							{offset: 1,   color: 'hsl(110, 80%, 30%)'}
 						]
-					);
-					sketch.drawPolygon(rad, rad, 5, rad);
+					};
+
+					sketch.noStroke = true;
+					sketch.setGradient(prop);
+					sketch.drawPolygon(prop3);
 				})();
 				</script>
 			</section>
@@ -249,7 +277,16 @@ sketch.drawPolygon(centerX, centerY, p, rad, rotate);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawQuadraticCurve(startX, startY, { cpx: Number, cpy: Number, endx: Number, endy: Number });</code></p>
+var prop = {
+	startX: 0,
+	startY: 0,
+	points: [
+		{ cpx: 25, cpy: 0, endx: 50, endy: sketch.height },
+		{ cpx: 50, cpy: 0, endx: 100, endy: 0 },
+		{ cpx: 150, cpy: 0, endx: 200, endy: sketch.height }
+	]
+};
+sketch.drawQuadraticCurve(prop);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -258,11 +295,16 @@ sketch.drawQuadraticCurve(startX, startY, { cpx: Number, cpy: Number, endx: Numb
 				(function() {
 					var sketch = new Sketch( 'quadratic' );
 					sketch.stage.fillStyle = 'rgb(255, 255, 255)';
-					sketch.drawQuadraticCurve(0, 0, [
+					var prop = {
+						startX: 0,
+						startY: 0,
+						points: [
 							{ cpx: 25, cpy: 0, endx: 50, endy: sketch.height },
 							{ cpx: 50, cpy: 0, endx: 100, endy: 0 },
 							{ cpx: 150, cpy: 0, endx: 200, endy: sketch.height }
-						]);
+						]
+					};
+					sketch.drawQuadraticCurve(prop);
 				})();
 				</script>
 			</section>
@@ -278,9 +320,15 @@ sketch.drawQuadraticCurve(startX, startY, { cpx: Number, cpy: Number, endx: Numb
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawBezierCurve(startX, startY, [
-	{ cpx: Number, cpy: Number, cp2x: Number, cp2y: Number, endx: Number, endy: Number }
-]);</code></p>
+var prop = {
+	startX: 0,
+	startY: 0,
+	points: [
+		{ cpx: 150, cpy: 100, cp2x: 200, cp2y: 180, endx: 500, endy: 150 },
+		{ cpx: 500, cpy: 120, cp2x: 200, cp2y: 160, endx: 250, endy: 60 }
+	]
+};
+sketch.drawBezierCurve(prop);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -289,10 +337,15 @@ sketch.drawBezierCurve(startX, startY, [
 				(function() {
 					var sketch = new Sketch( 'bezierCurve' );
 					sketch.stage.fillStyle = 'rgb(255, 255, 255)';
-					sketch.drawBezierCurve(0, 0, [
+					var prop = {
+						startX: 0,
+						startY: 0,
+						points: [
 							{ cpx: 150, cpy: 100, cp2x: 200, cp2y: 180, endx: 500, endy: 150 },
 							{ cpx: 500, cpy: 120, cp2x: 200, cp2y: 160, endx: 250, endy: 60 }
-						]);
+						]
+					};
+					sketch.drawBezierCurve(prop);
 				})();
 				</script>
 			</section>
@@ -307,7 +360,13 @@ sketch.drawBezierCurve(startX, startY, [
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-sketch.drawBezierCircle(centerX, centerY, rad, p);</code></p>
+var prop = {
+	centerX: 150,
+	centerY: 150,
+	rad: 120,
+	p: 6
+};
+sketch.drawBezierCircle(prop);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
@@ -315,7 +374,13 @@ sketch.drawBezierCircle(centerX, centerY, rad, p);</code></p>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'bezier' );
-					sketch.drawBezierCircle(150, 150, 120, 6);
+					var prop = {
+						centerX: 150,
+						centerY: 150,
+						rad: 120,
+						p: 6
+					};
+					sketch.drawBezierCircle(prop);
 				})();
 				</script>
 			</section>
@@ -332,9 +397,20 @@ sketch.drawBezierCircle(centerX, centerY, rad, p);</code></p>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
 var sketch = new Sketch( 'image' );
 var image = new Image();
+var prop = {
+	image: image,
+	sx: 100,
+	sy: 100,
+	sw: 600,
+	sh: 350,
+	dx: 0,
+	dy: 0,
+	dw: 200,
+	dh: 200
+};
 image.src = 'image.jpg';
 image.onload = function() {
-	sketch.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+	sketch.drawImage(prop);
 };</code></p>
 			</section>
 			<section>
@@ -344,9 +420,20 @@ image.onload = function() {
 				(function() {
 					var sketch = new Sketch( 'image' );
 					var image = new Image();
+					var prop = {
+						image: image,
+						sx: 100,
+						sy: 100,
+						sw: 600,
+						sh: 350,
+						dx: 0,
+						dy: 0,
+						dw: 200,
+						dh: 200
+					};
 					image.src = 'image.jpg';
 					image.onload = function() {
-						sketch.drawImage(image, 100, 100, 600, 350, 0, 0, 200, 200);
+						sketch.drawImage(prop);
 					};
 				})();
 				</script>
