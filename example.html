@@ -17,6 +17,7 @@
 		<li><a href="#drawLine">drawLine()</a></li>
 		<li><a href="#drawRect">drawRect()</a></li>
 		<li><a href="#drawCircle">drawCircle()</a></li>
+		<li><a href="#drawPie">drawPie()</a></li>
 		<li><a href="#drawEllipse">drawEllipse()</a></li>
 		<li><a href="#drawPolygon">drawPolygon()</a></li>
 		<li><a href="#setFillColor">setFillColor()</a></li>
@@ -164,6 +165,31 @@ sketch.drawCircle(prop);</code></p>
 					var sketch = new Sketch( 'circle' );
 					var prop = {centerX: sketch.width / 2, centerY: sketch.height / 2, rad: 50};
 					sketch.drawCircle(prop);
+				})();
+				</script>
+			</section>
+		</section>
+
+		<section id="drawPie">
+			<h3>drawPie()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>vvar sketch = new Sketch( 'pie' );
+var prop = {centerX: sketch.width / 2, centerY: sketch.height / 2, startAngle:0, endAngle: 90, rad: 50};
+sketch.drawPie(prop);</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="pie" width="150" height="150"></canvas>
+				<script>
+				(function() {
+					var sketch = new Sketch( 'pie' );
+					var prop = {centerX: sketch.width / 2, centerY: sketch.height / 2, startAngle:0, endAngle: 90, rad: 50};
+					sketch.drawPie(prop);
 				})();
 				</script>
 			</section>

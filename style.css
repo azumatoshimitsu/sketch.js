@@ -20,6 +20,13 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 10px;
 }
 
+#wrapper {
+	background: #FFF;
+	padding: 10px 30px;
+	max-width: 800px;
+	border-radius: 10px;
+}
+
 nav {
 	overflow: auto;
 	position: fixed;
@@ -47,7 +54,7 @@ p { font-size: 0.8rem; }
 .wrap-code {
 	background: #333;
 	margin-bottom: 10px;
-	padding: 18px 30px; 
+	padding: 10px 20px; 
 	color: #FFF;
 	border-radius: 10px;
 	font-size: 1rem;
@@ -113,5 +120,18 @@ section a.button-look {
 	right: 20px;
 	top: 20px;
 	background: #FFF;
+}
+
+.center {
+	text-align: center;
+}
+
+table { width: 100%; }
+
+th, td { padding: 8px 10px; border: 1px solid #ccc; text-align: left; }
+
+thead th {
+	text-align: center;
+	background: #efefef;
 }
 

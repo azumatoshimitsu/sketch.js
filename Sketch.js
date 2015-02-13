@@ -14,10 +14,10 @@ var Sketch = function(canvasid, option) {
 	this.noStroke = false;
 	this.noFill   = false;
 	this.lastTime = 0;
-	this.move = (this.isTouch)? 'touchmove' : 'mousemove';
+	this.move = (this.isTouch)? 'touchmove'  : 'mousemove';
 	this.down = (this.isTouch)? 'touchstart' : 'mousedown';
-	this.up   = (this.isTouch)? 'touchend' : 'mouseup';
-	this.out  = (this.isTouch)? 'touchend' : 'mouseout';
+	this.up   = (this.isTouch)? 'touchend'   : 'mouseup';
+	this.out  = (this.isTouch)? 'touchend'   : 'mouseout';
 	if(option.isRetina) {
 		this.element.style.width = (this.width / 2) + 'px';
 		this.element.style.height = (this.height / 2) + 'px';
@@ -114,6 +114,20 @@ var Sketch = function(canvasid, option) {
 			var rad = arg.rad;
 			this.stage.beginPath();
 			this.stage.arc(centerX, centerY, rad, 0, Math.PI * 2, false);
+			if(!this.noFill)
+				this.stage.fill();
+			if(!this.noStroke)
+				this.stage.stroke();
+		},
+		drawPie: function(arg) {
+			var centerX = arg.centerX;
+			var centerY = arg.centerY;
+			var startAngle = arg.startAngle;
+			var endAngle   = arg.endAngle;
+			var rad = arg.rad;
+			this.stage.beginPath();
+			this.stage.moveTo(centerX, centerY);
+			this.stage.arc(centerX, centerY, rad, startAngle, endAngle * Math.PI / 180, false);
 			if(!this.noFill)
 				this.stage.fill();
 			if(!this.noStroke)
