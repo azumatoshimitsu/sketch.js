@@ -18,7 +18,8 @@ var Sketch = function(canvasid, option) {
 	this.down = (this.isTouch)? 'touchstart' : 'mousedown';
 	this.up   = (this.isTouch)? 'touchend'   : 'mouseup';
 	this.out  = (this.isTouch)? 'touchend'   : 'mouseout';
-	if(option.isRetina) {
+	this.isRetina = option.isRetina;
+	if(this.isRetina) {
 		this.element.style.width = (this.width / 2) + 'px';
 		this.element.style.height = (this.height / 2) + 'px';
 	}
@@ -98,8 +99,12 @@ var Sketch = function(canvasid, option) {
 			return {
 				isHit: function(e) {
 					var target = e.target.getBoundingClientRect();
-					var mouseX = (e.pageX - (window.scrollX + target.left)) * 2;//canvasを1/2で表示しているので倍にする
-					var mouseY = (e.pageY - (window.scrollY + target.top)) * 2;
+					var m = 1;
+					if(this.isRetina) {
+						m = 2;
+					}
+					var mouseX = (e.pageX - (window.scrollX + target.left)) * m;//canvasを1/2で表示しているので倍にする
+					var mouseY = (e.pageY - (window.scrollY + target.top)) * m;
 					if(mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h)
 						return true;
 					else
@@ -215,7 +220,6 @@ var Sketch = function(canvasid, option) {
 			var points = arg.points;
 			var len = points.length;
 			var prev = { x: startX, y: startY };
-			this.stage.beginPath();
 			this.stage.moveTo(prev.x, prev.y);
 			for(var i = 0; i < len; i += 1) {
 				this.stage.bezierCurveTo(
@@ -340,13 +344,17 @@ var Sketch = function(canvasid, option) {
 			var rect = this.element.getBoundingClientRect();
 			var px = e.clientX;
 			var py = e.clientY;
+			var m = 1;
+			if(this.isRetina) {
+				m = 2;
+			}
 			if(this.isTouch) {
 				var touchList = e.changedTouches;
 				px = touchList[0].clientX;
 				py = touchList[0].clientY;
 			}
-		    var x = px - rect.left;
-		    var y = py - rect.top;
+		    var x = (px - rect.left) * m;
+		    var y = (py - rect.top) * m;
 		    return {x: x, y: y};
 		}
 	};
