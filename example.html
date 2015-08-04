@@ -127,7 +127,7 @@ sketch.drawLine(prop);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
-var prop = {x: 10, y: 10, w: 100, h: 100, rad: 45};
+var prop = {x: 10, y: 10, w: 100, h: 100};
 sketch.drawRect(prop);</code></p>
 			</section>
 			<section>
@@ -137,7 +137,7 @@ sketch.drawRect(prop);</code></p>
 				(function() {
 					var sketch = new Sketch( 'rect' );
 					var prop = {x: 10, y: 10, w: 100, h: 100};
-					var prop2 = {x: 180, y: 20, w: 100, h: 100, rad: 45};
+					var prop2 = {x: 180, y: 20, w: 100, h: 100, angle: 45};
 					sketch.drawRect(prop);
 					sketch.drawRect(prop2);
 				})();

@@ -79,21 +79,22 @@ var Sketch = function(canvasid, option) {
 			var y = arg.y;
 			var w = arg.w;
 			var h = arg.h;
-			var rad = arg.rad;
-			if(rad) {
+			var angle = arg.angle;
+			if(angle) {
 				this.stage.save();
 				var rotateW = Math.abs(x + (w / 2));
 				var rotateH = Math.abs(y + (h / 2));
 				this.stage.translate(rotateW, rotateH);
 				this.stage.beginPath();
-				this.stage.rotate(rad * Math.PI / 180);
+				this.stage.rotate(angle * Math.PI / 180);
 				this.stage.rect(-(w / 2), -(h / 2), w, h);
 				this.stage.restore();
 			} else {
 				this.stage.beginPath();
 				this.stage.rect(x, y, w, h);
 			}
-			this.stage.fill();
+			if(!this.noFill)
+				this.stage.fill();
 			if(!this.noStroke)
 				this.stage.stroke();
 			return {
@@ -164,7 +165,7 @@ var Sketch = function(canvasid, option) {
 		 	this.stage.beginPath();
 			if(rotate) {
 				for(var i = 0; i < p; i += 1) {
-					point.push( getPoint(0, 0, (angle * i), rad) );
+					point.push( this.getPoint(0, 0, (angle * i), rad) );
 				}
 				this.stage.translate(0, 0);//描画する位置まで動かす
 				this.stage.translate(centerX, centerY);//描画するエリアの幅と高さ分移動
@@ -176,7 +177,7 @@ var Sketch = function(canvasid, option) {
 				this.stage.lineTo(point[0].x, point[0].y);
 			} else {
 				for(var i = 0; i < p; i += 1) {
-					point.push(getPoint(centerX, centerY, (angle * i), rad));
+					point.push(this.getPoint(centerX, centerY, (angle * i), rad));
 				}
 				this.stage.moveTo(point[0].x, point[0].y);
 				for(var i = 1; i < p; i += 1) {
@@ -189,11 +190,10 @@ var Sketch = function(canvasid, option) {
 			if(!this.noStroke)
 				this.stage.stroke();
 			this.stage.restore();
-			
-			function getPoint(x, y, angle, r) {
-				var p = {x: x + r * Math.cos(angle * Math.PI / 180), y: y + r * Math.sin(angle * Math.PI / 180) };
-				return p;
-			};
+		},
+		getPoint: function(x, y, angle, r) {
+			var p = {x: x + r * Math.cos(angle * Math.PI / 180), y: y + r * Math.sin(angle * Math.PI / 180) };
+			return p;
 		},
 		//二次ベジェ曲線
 		drawQuadraticCurve: function(arg) {
@@ -356,6 +356,12 @@ var Sketch = function(canvasid, option) {
 		    var x = (px - rect.left) * m;
 		    var y = (py - rect.top) * m;
 		    return {x: x, y: y};
+		},
+		//値を規制
+		map: function(value, low1, high1, low2, high2) {
+			var moto = high1 - low1;
+			var ato  = high2 - low2;
+			return (ato / moto) * value;
 		}
 	};
 	
