@@ -134,7 +134,7 @@ var Sketch = function(canvasid, option) {
 			var rad = arg.rad;
 			this.stage.beginPath();
 			this.stage.moveTo(centerX, centerY);
-			this.stage.arc(centerX, centerY, rad, startAngle, this.radian(endAngle), false);
+			this.stage.arc(centerX, centerY, rad, this.radian(startAngle), this.radian(endAngle), false);
 			if(!this.noFill)
 				this.stage.fill();
 			if(!this.noStroke)
