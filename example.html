@@ -480,24 +480,16 @@ console.log(pos.x, pos.y);</code></p>
 			</section>
 			<section>
 				<h4>Exmaple</h4>
-				<button id="reset-mouseposrect">Reset</button><br>
 				<canvas id="mousepos" width="250" height="250"></canvas>
 				<script>
 				(function() {
 					var sketch = new Sketch( 'mousepos' );
 					sketch.drawRect(0, 0, 250, 250);
 					sketch.noStroke = true;
-					sketch.setFillColor('#fff');
 					sketch.element.addEventListener(sketch.move, function(e) {
 						var pos = sketch.getMousePosition(e);
-						sketch.drawRect(pos.x, pos.y, 4, 4);
-					});
-					document.querySelector('#reset-mouseposrect').addEventListener('click', function(e) {
-						var pos = sketch.getMousePosition(e);
-						sketch.save();
-						sketch.setFillColor('#000');
-						sketch.drawRect(0, 0, 250, 250);
-						sketch.restore();
+						sketch.clear();
+						sketch.stage.fillText('x: ' + pos.x +  ' y: ' + pos.y, sketch.center.x, sketch.center.y);
 					});
 				})();
 				</script>
@@ -509,8 +501,8 @@ console.log(pos.x, pos.y);</code></p>
 			<section>
 				<h4>JavaScript</h4>
 				<p class="wrap-code"><code>var isHitBool = document.querySelector( '#isHitBool' );
-var circlePos = { x: sketch.width / 2, y: sketch.height / 2 };
-var circle = sketch.drawCircle(circlePos.x, circlePos.y, 20);
+var prop = {centerX: sketch.center.x, centerY: sketch.center.y, rad: 20};
+var circle = sketch.drawCircle(prop);
 sketch.element.addEventListener(sketch.move, function(e) {
 	var pos = sketch.getMousePosition(e);
 	isHitBool.innerHTML = sketch.isHitCircle(pos, circlePos, distance);
@@ -524,12 +516,12 @@ sketch.element.addEventListener(sketch.move, function(e) {
 				(function() {
 					var isHitBool = document.querySelector( '#isHitBool' );
 					var sketch = new Sketch( 'circleisHit' );
-					var circlePos = { x: sketch.width / 2, y: sketch.height / 2 };
-					var circle = sketch.drawCircle(circlePos.x, circlePos.y, 20);
+					var prop = {centerX: sketch.center.x, centerY: sketch.center.y, rad: 20};
+					var circle = sketch.drawCircle(prop);
 
 					sketch.element.addEventListener(sketch.move, function(e) {
 						var pos = sketch.getMousePosition(e);
-						isHitBool.innerHTML = sketch.isHitCircle(pos, circlePos, 20);
+						isHitBool.innerHTML = sketch.isHitCircle(pos, sketch.center, 20);
 					});
 				})();
 				</script>

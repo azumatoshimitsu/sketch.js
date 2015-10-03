@@ -87,7 +87,7 @@ var Sketch = function(canvasid, option) {
 				var rotateH = Math.abs(y + (h / 2));
 				this.stage.translate(rotateW, rotateH);
 				this.stage.beginPath();
-				this.stage.rotate(angle * Math.PI / 180);
+				this.stage.rotate(this.radian(angle));
 				this.stage.rect(-(w / 2), -(h / 2), w, h);
 				this.stage.restore();
 			} else {
@@ -134,7 +134,7 @@ var Sketch = function(canvasid, option) {
 			var rad = arg.rad;
 			this.stage.beginPath();
 			this.stage.moveTo(centerX, centerY);
-			this.stage.arc(centerX, centerY, rad, startAngle, endAngle * Math.PI / 180, false);
+			this.stage.arc(centerX, centerY, rad, startAngle, this.radian(endAngle), false);
 			if(!this.noFill)
 				this.stage.fill();
 			if(!this.noStroke)
@@ -171,7 +171,7 @@ var Sketch = function(canvasid, option) {
 				}
 				this.stage.translate(0, 0);//描画する位置まで動かす
 				this.stage.translate(centerX, centerY);//描画するエリアの幅と高さ分移動
-				this.stage.rotate(rotate * Math.PI / 180);//回転
+				this.stage.rotate(this.radian(rotate));//回転
 				this.stage.moveTo(point[0].x, point[0].y);
 				for(var i = 1; i < p; i += 1){
 					this.stage.lineTo(point[i].x, point[i].y);
@@ -194,7 +194,7 @@ var Sketch = function(canvasid, option) {
 			this.stage.restore();
 		},
 		getPoint: function(x, y, angle, r) {
-			var p = {x: x + r * Math.cos(angle * Math.PI / 180), y: y + r * Math.sin(angle * Math.PI / 180) };
+			var p = {x: x + r * Math.cos(this.radian(angle)), y: y + r * Math.sin(this.radian(angle)) };
 			return p;
 		},
 		//二次ベジェ曲線
@@ -271,7 +271,8 @@ var Sketch = function(canvasid, option) {
 		        point.sy = Math.random() * 3 + 1;
 		        points.push(point);
 		    }
-		    draw(points, this.stage);
+
+		    draw.call(this, points, this.stage);
 			function draw(pointList, ctx) {
 				var anchorPointList, controlPoint1List, controlPoint2List;
 				var num = pointList.length;
@@ -287,8 +288,8 @@ var Sketch = function(canvasid, option) {
 			    	var controlPoint1; // コントロールポイント 1
 			    	var controlPoint2; // コントロールポイント 2
 			    	    
-			        point.x = point.bx + Math.cos(point.angleX * Math.PI / 180) * point.mx;
-			        point.y = point.by + Math.sin(point.angleY * Math.PI / 180) * point.my;
+			        point.x = point.bx + Math.cos(this.radian(point.angleX)) * point.mx;
+			        point.y = point.by + Math.sin(this.radian(point.angleY)) * point.my;
 			        
 			        point.angleX += point.sx;
 			        point.angleY += point.sy;
@@ -364,6 +365,10 @@ var Sketch = function(canvasid, option) {
 			var moto = high1 - low1;
 			var ato  = high2 - low2;
 			return (ato / moto) * value;
+		},
+		//度をラジアンに変化
+		radian: function(d) {
+			return d * Math.PI / 180;
 		}
 	};
 	
