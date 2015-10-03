@@ -11,6 +11,7 @@ var Sketch = function(canvasid, option) {
 	this.stage    = this.element.getContext('2d');
 	this.width    = this.element.width;
 	this.height   = this.element.height;
+	this.center   = {x: this.width / 2, y: this.height / 2};
 	this.noStroke = false;
 	this.noFill   = false;
 	this.lastTime = 0;
@@ -140,18 +141,19 @@ var Sketch = function(canvasid, option) {
 				this.stage.stroke();
 		},
 		isHitCircle: function(target, current, distance) {
-			if(dist(target.x, target.y, current.x, current.y) <= distance)
+			if(this.dist(target.x, target.y, current.x, current.y) <= distance)
 				return true;
 			else
 				return false;
-			//円同士が重なっているかを中心座標から計算
-			function dist(x1, y1, x2, y2) {
-			  var a = x1 - x2;
-			  var b = y1 - y2;
-			  var d = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
-			  return d;
-			}
 		},
+			//円同士が重なっているかを中心座標から計算
+		dist: function(x1, y1, x2, y2) {
+		  var a = x1 - x2;
+		  var b = y1 - y2;
+		  var d = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
+		  return d;
+		},
+
 		//多角形描画
 		drawPolygon: function(arg) {
 			var centerX = arg.centerX;
@@ -330,7 +332,7 @@ var Sketch = function(canvasid, option) {
 			var radW = w / 2;
 			var radH = h / 2;
 			this.stage.beginPath();
-			this.stage.bezierCurveTo(centerX, centerY - radH, centerX + radW , centerY - radH, centerX + radW, centerY);
+			this.stage.bezierCurveTo(centerX, centerY - radH, centerX + radW, centerY - radH, centerX + radW, centerY);
 			this.stage.bezierCurveTo(centerX + radW, centerY, centerX + radW, centerY + radH, centerX, centerY + radH);
 			this.stage.bezierCurveTo(centerX, centerY + radH, centerX - radW, centerY + radH, centerX - radW, centerY);
 			this.stage.bezierCurveTo(centerX - radW, centerY, centerX - radW, centerY - radH, centerX, centerY - radH);
