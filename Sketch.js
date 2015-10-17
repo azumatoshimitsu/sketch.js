@@ -239,8 +239,8 @@ var Sketch = function(canvasid, option) {
 			var sh = arg.sh || arg.image.height;
 			var dx = arg.dx || 0;
 			var dy = arg.dy || 0;
-			var dw = arg.dw || arg.sw;
-			var dh = arg.dh || arg.sh;
+			var dw = arg.dw || sw;
+			var dh = arg.dh || sh;
 			this.stage.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
 		},
 		//ベジェで揺らめく円 http://jsdo.it/asou_jp/qWr9
