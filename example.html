@@ -28,6 +28,7 @@
 		<li><a href="#drawBezierCircle">drawBezierCircle()</a></li>
 		<li><a href="#drawImage">drawImage()</a></li>
 		<li><a href="#getMousePosition">getMousePosition()</a></li>
+		<li><a href="#getImageData">getImageData()</a></li>
 		<li><a href="#isHitCircle">isHitCircle()</a></li>
 	</ul>
 </nav>
@@ -491,6 +492,52 @@ console.log(pos.x, pos.y);</code></p>
 						sketch.clear();
 						sketch.stage.fillText('x: ' + pos.x +  ' y: ' + pos.y, sketch.center.x, sketch.center.y);
 					});
+				})();
+				</script>
+			</section>
+		</section>
+
+		<section id="getImageData">
+			<h3>getImageData()</h3>
+			<section>
+				<h4>HTML</h4>
+				<p class="wrap-code"><code>&lt;canvas id=&quot;canvas&quot; width=&quot;2&quot; height=&quot;2&quot;&gt;</code></p>
+			</section>
+			<section>
+				<h4>JavaScript</h4>
+				<p class="wrap-code"><code>var sketch = new Sketch( 'canvas' );
+sketch.noStroke = true;
+sketch.setFillColor('#FF0000');
+var prop = {x: 0, y: 0, w: 1, h: 1};
+sketch.drawRect(prop);
+var data = sketch.getImageData();
+var str = '';
+for (var i = 0; i &lt; data.length; i += 1) {
+	str += 'r:' + data[i].r + ' g:' + data[i].g + ' b:' + data[i].b + ' a:' + data[i].a + '&lt;br&gt;';
+};
+document.getElementById('imagedatapre').innerHTML = str;</code></p>
+			</section>
+			<section>
+				<h4>Exmaple</h4>
+				<canvas id="imagedata" width="2" height="2"></canvas>
+				<div id="imagedatapre" style="word-break: break-word;"></div>
+				<script>
+				(function() {
+					var sketch = new Sketch( 'imagedata' );
+					sketch.noStroke = true;
+					sketch.setFillColor('#FF0000');
+					var prop = {x: 0, y: 0, w: 1, h: 1};
+					sketch.drawRect(prop);
+					var data = sketch.getImageData();
+					var str = '';
+					for (var i = 0; i < data.length; i += 1) {
+						str += 'r:' + data[i].r;
+						str += ' g:' + data[i].g;
+						str += ' b:' + data[i].b;
+						str += ' a:' + data[i].a;
+						str += '<br>';
+					};
+					document.getElementById('imagedatapre').innerHTML = str;
 				})();
 				</script>
 			</section>

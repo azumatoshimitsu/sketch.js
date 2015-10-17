@@ -67,14 +67,12 @@ var Sketch = function(canvasid, option) {
 			});
 			this.stage.fillStyle = grad;
 		},
-		//線描画
 		drawLine: function(arg) {
 			this.stage.beginPath();
 			this.stage.moveTo(arg.startX, arg.startY);
 			this.stage.lineTo(arg.endX, arg.endY);
 			this.stage.stroke();
 		},
-		//矩形描画
 		drawRect: function(arg) {
 			var x = arg.x;
 			var y = arg.y;
@@ -114,7 +112,6 @@ var Sketch = function(canvasid, option) {
 				}
 			};
 		},
-		//円描画
 		drawCircle: function(arg) {
 			var centerX = arg.centerX;
 			var centerY = arg.centerY;
@@ -153,8 +150,6 @@ var Sketch = function(canvasid, option) {
 		  var d = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
 		  return d;
 		},
-
-		//多角形描画
 		drawPolygon: function(arg) {
 			var centerX = arg.centerX;
 			var centerY = arg.centerY;
@@ -324,7 +319,6 @@ var Sketch = function(canvasid, option) {
 				};
 			};
 	    },
-		//楕円描画
 		drawEllipse: function(arg) {
 			var centerX = arg.centerX;
 			var centerY = arg.centerY;
@@ -342,7 +336,6 @@ var Sketch = function(canvasid, option) {
 			if(!this.noStroke)
 				this.stage.stroke();
 		},
-		//マウスの位置
 		getMousePosition: function(e) {
 			var rect = this.element.getBoundingClientRect();
 			var px = e.clientX;
@@ -360,13 +353,33 @@ var Sketch = function(canvasid, option) {
 		    var y = (py - rect.top) * m;
 		    return {x: x, y: y};
 		},
+		getImageData: function(arg) {
+			return this._getImageData.call(this, arg);
+		},
+		_getImageData: function(arg) {
+			var arg = arg || {},
+				arr = [],
+				startX = arg.startX || 0,
+				startY = arg.startY || 0,
+				endX = arg.endX || this.width,
+				endY = arg.endY || this.height;
+				size = arg.size || 1;
+				data = this.stage.getImageData(startX, startY, endX, endY).data;
+
+			for(var y = 0; y < endY; y += size){
+				for(var x = 0; x < endX; x += size){
+					var n = (x + y * endX) * 4;//yは外側のループなので 0 に戻るのを w をかけて回避
+					arr.push({r: data[n], g: data[n + 1], b: data[n + 2], a: data[n + 3]});
+				}
+			}
+			return arr;
+		},
 		//値を規制
 		map: function(value, low1, high1, low2, high2) {
 			var moto = high1 - low1;
 			var ato  = high2 - low2;
 			return (ato / moto) * value;
 		},
-		//度をラジアンに変化
 		radian: function(d) {
 			return d * Math.PI / 180;
 		}
